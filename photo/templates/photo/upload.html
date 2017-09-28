@@ -1,0 +1,10 @@
+{% extends 'base.html' %}
+
+{% block title %}
+    Upload
+{% endblock %}
+    {{ form.as_p }}
+    {% csrf_token %}
+    <input class = "btn btn-default" type="submit">
+{% block content %}
+{% endblock %}

@@ -1,0 +1,11 @@
+{% extends 'base.html' %}
+{% block title %}-Register{% endblock %}
+
+{% block content %}
+<div class="alert aler-info" role="alert">Please enter your account information.</div>
+<form action="." method="post">
+    {{form.as_p}}
+    {% csrf_token %}
+    <input class="btn btn-default" type="submit" value="Register">
+</form>
+{% endblock %}

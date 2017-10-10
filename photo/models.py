@@ -5,11 +5,12 @@ from io import BytesIO
 from django.core.files.base import ContentFile
 from django.db.models.signals import post_delete
 from django.dispatch import receiver
-
+from tagging.fields import TagField # 태그필드
 
 class Photo(models.Model):
     author = models.ForeignKey(User, related_name='photo_posts')
     photo = models.ImageField(upload_to='photos/%Y/%m/%d', blank=False, default='NoImage.jpg')
+    tag = TagField()
     text = models.TextField()
     created = models.DateTimeField(auto_now_add=True)
     updated = models.DateTimeField(auto_now=True)
@@ -49,10 +50,10 @@ class Photo(models.Model):
                     self.photo = before_obj.photo
                 else :
                     before_obj.photo.delete(save=False)
-
             except:
                 pass
         super(Photo, self).save(*args,**kwargs)
+        
 @receiver(post_delete, sender=Photo)
 def post_delete(sender, instance, **kwargs):
     storage,path = instance.photo.storage, instance.photo.path

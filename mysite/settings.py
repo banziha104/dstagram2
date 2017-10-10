@@ -37,8 +37,9 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'photo',
+    'photo',                            # 별다른 기능이 없어서 photo 만 써주면됨.
     'accounts',
+    'tagging.apps.TaggingConfig',       # 기능을 건들때
 ]
 
 MIDDLEWARE = [

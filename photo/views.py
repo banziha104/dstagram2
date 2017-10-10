@@ -1,6 +1,6 @@
 from django.shortcuts import render,redirect
 from django.contrib.auth.decorators import login_required
-from django.views.generic import CreateView, DeleteView
+from django.views.generic import CreateView, DeleteView, UpdateView
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.core.urlresolvers import reverse_lazy
 from .models import Photo
@@ -12,7 +12,7 @@ def post_list(request):
 
 class UploadView(LoginRequiredMixin,CreateView):
     model = Photo
-    fields = ['photo','text']
+    fields = ['photo','text','tag']
     template_name = 'photo/upload.html'
 
     def form_valid(self, form):
@@ -24,4 +24,10 @@ class UploadView(LoginRequiredMixin,CreateView):
 
 class PhotoDeleteV(LoginRequiredMixin, DeleteView):
     model = Photo
-    success_url = reverse_lazy('post_list')
+    success_url = reverse_lazy('post_delete')
+
+class PhotoUpdateV(LoginRequiredMixin, UpdateView):
+    model = Photo
+    fields = ['photo', 'text', 'tag']
+    template_name = 'photo/upload.html'
+    success_url = reverse_lazy('post_update')
